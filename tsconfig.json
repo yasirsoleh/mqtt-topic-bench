@@ -1,0 +1,12 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "build",
+    "strict": true,
+    "lib": ["esnext", "dom"],
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", "prisma/**/*"],
+  "exclude": ["node_modules"]
+}
