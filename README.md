@@ -1,4 +1,4 @@
-# DMS-Cloud-Device
+# MQTT-Topic-Bench 
 
 ## How to prepare
 
