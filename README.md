@@ -1,4 +1,4 @@
-# MQTT-Topic-Bench 
+# MQTT-Topic-Bench
 
 ## How to prepare
 
@@ -16,8 +16,17 @@ corepack enable
 yarn install
 ```
 
-### 4. Run
+### 4. Prepare .env
+
+Change the env values as necessary
 
 ```
+cp .env.example .env
+```
+
+### 5. Run
+
+```
+yarn subscribe
 yarn start
 ```

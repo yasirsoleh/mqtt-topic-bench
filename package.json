@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/main.ts",
+    "subscribe" : "ts-node src/subscribe.ts",
     "dev": "nodemon src/main.ts",
     "lint": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\"",
