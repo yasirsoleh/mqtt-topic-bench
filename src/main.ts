@@ -1,8 +1,9 @@
-import { error } from "console";
+import { setMaxListeners } from "events";
 import * as mqtt from "mqtt";
 import config from "./config";
 
 function main() {
+  setMaxListeners(config.benchmark.total_message);
   const client = mqtt.connect(config.mqtt.endpoint, {
     username: config.mqtt.username,
     password: config.mqtt.password,
@@ -14,18 +15,25 @@ function main() {
   client.on("connect", async () => {
     console.log("CONNECTED");
     const start = Date.now();
-    Promise.all([
+    const messages_sent = await Promise.all(
       create_messages(
         client,
         config.benchmark.total_topic,
         config.benchmark.total_message
-      ),
-    ]).finally(() => {
-      const end = Date.now();
-      const total_time = end - start;
-      console.log("TOTAL TIME: ", total_time, " ms");
-      process.exit(0);
+      )
+    );
+    const end = Date.now();
+    let success = 0,
+      failed = 0;
+    messages_sent.forEach((value) => {
+      value ? (success = success + 1) : (failed = failed + 1);
     });
+    console.log("MESSAGE SENT : ", messages_sent.length);
+    console.log("TOTAL TOPIC  : ", config.benchmark.total_topic);
+    console.log("TOTAL SUCCESS: ", success);
+    console.log("TOTAL FAILED : ", failed);
+    console.log("TIME TAKEN   : ", end - start, "ms");
+    process.exit(0);
   });
 }
 
